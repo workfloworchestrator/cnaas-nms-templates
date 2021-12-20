@@ -1,3 +1,11 @@
+system {
+    ntp {
+{% for ntp_server in ntp_servers %}
+        server {{ ntp_server.host }};
+{% endfor %}
+    }
+}
+
 {% if (radius_servers is defined) and radius_servers %}
 access {
     {% for server in radius_servers %}

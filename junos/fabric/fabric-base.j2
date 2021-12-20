@@ -1,3 +1,10 @@
+system {
+    ntp {
+{% for ntp_server in ntp_servers %}
+        server {{ ntp_server.host }};
+{% endfor %}
+    }
+}
 protocols {
     evpn {
         extended-vni-list all;
