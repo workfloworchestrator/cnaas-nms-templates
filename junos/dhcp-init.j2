@@ -20,9 +20,11 @@ services {
     }
 }
 interfaces {
-    unit 0 {
-    family inet {
-        dhcp {
+    irb {
+        unit 0 {
+            family inet {
+                dhcp;
+            }
         }
     }
 }
