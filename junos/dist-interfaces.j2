@@ -4,9 +4,6 @@ interfaces {{ intf.name }} {
 {% if (intf.data is defined) and intf.data %}
     {% if (intf.data.description is defined) and intf.data.description %}
     description {{ intf.data.description }};
-    # Juniper port-channel numbering, use indexnum - 1 and no values higher than 1999  #}
-    {% set po_num = (intf.indexnum-1)%2000 %} 
-    ether-options 802.3ad ae{{ po_num }};
     {% else %}
     description DOWNLINK;
     {% endif %}
@@ -23,6 +20,9 @@ interfaces {{ intf.name }} {
     }
     {% endfor %}
 {% endif %}
+ {# Juniper port-channel numbering, use indexnum - 1 and no values higher than 1999  #}
+   {% set po_num = (intf.indexnum-1)%2000 %} 
+    ether-options 802.3ad ae{{ po_num }};
 }
 {# Juniper unique port number in 2 digits #}
 {% set intf_split = intf.name.split('-') %}
