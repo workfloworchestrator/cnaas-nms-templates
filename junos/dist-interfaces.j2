@@ -13,7 +13,7 @@ interfaces {{ intf.name }} {
 {% else %}
     description DOWNLINK;
     {% for mgmtdom in mgmtdomains %}
-    unit {{ mgmtdom.id }} {
+    unit 0 {
         family ethernet-switching {
             interface-mode access;
             vlan {
