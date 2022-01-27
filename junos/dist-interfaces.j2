@@ -11,16 +11,7 @@ interfaces {{ intf.name }} {
     {% endif %}
     ether-options 802.3ad ae{{ po_num }};
 {% else %}
-    description DOWNLINK;
-    {% for mgmtdom in mgmtdomains %}
-    unit 0 {
-        family ethernet-switching {
-            vlan {
-                members MGMT-DOMAIN-{{ mgmtdom.id }};
-            }
-        }
-    }
-    {% endfor %}
+    description DOWNLINK-ZTP;
 {% endif %}
 }
 {# Juniper unique port number in 2 digits #}

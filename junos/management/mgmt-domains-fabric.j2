@@ -35,7 +35,7 @@ routing-instances {
 {% if not ((intf.data is defined) and intf.data) %}
 routing-instances {
     MGMT {
-        interface {{ intf.name }}.0;
+        interface {{ intf.name }};
     }
 }
 {% endif %}
