@@ -33,17 +33,19 @@ routing-instances {
             export target:10:10002;
         }
         {% if dhcp_relays| length > 0 %}
-        dhcp-relay {
-            server-group {
-                ZTP {
-                    {% for server in dhcp_relays %}
-                        {{ server.host }};
-                    {% endfor %}
+        forwarding-options {
+            dhcp-relay {
+                server-group {
+                    ZTP {
+                        {% for server in dhcp_relays %}
+                            {{ server.host }};
+                        {% endfor %}
+                    }
                 }
-            }
-            group ZTP {
-                active-server-group ZTP;
-                interface irb.2;
+                group ZTP {
+                    active-server-group ZTP;
+                    interface irb.2;
+                }
             }
         }
         {% endif %}
