@@ -12,6 +12,14 @@ interfaces {{ intf.name }} {
     ether-options 802.3ad ae{{ po_num }};
 {% else %}
     description DOWNLINK-ZTP;
+    unit 0 {
+    family ethernet-switching {
+        interface-mode access;
+        vlan {
+            members MGMT;
+        }
+    }
+}
 {% endif %}
 }
 {# Juniper unique port number in 2 digits #}
