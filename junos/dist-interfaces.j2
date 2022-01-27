@@ -13,12 +13,16 @@ interfaces {{ intf.name }} {
 {% else %}
     description DOWNLINK-ZTP;
     unit 0 {
+    {if mgmtdomains |length == 1 %}
+    {% for mgmtdom in mgmtdomains %}
     family ethernet-switching {
         interface-mode access;
         vlan {
-            members MGMT;
+            members MGMT-DOMAIN-{{ mgmtdom.id }};
         }
     }
+    {% endfor %}
+    {% endif %}
 }
 {% endif %}
 }
