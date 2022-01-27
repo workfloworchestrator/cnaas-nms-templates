@@ -44,7 +44,9 @@ routing-instances {
                 }
                 group ZTP {
                     active-server-group ZTP;
-                    interface irb.2;
+                    {% for mgmtdom in mgmtdomains %}
+                    interface irb.{{ mgmtdom.vlan }};
+                    {% endfor %}
                 }
             }
         }
