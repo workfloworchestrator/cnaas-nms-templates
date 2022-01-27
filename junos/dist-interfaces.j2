@@ -15,7 +15,6 @@ interfaces {{ intf.name }} {
     {% for mgmtdom in mgmtdomains %}
     unit 0 {
         family ethernet-switching {
-            interface-mode access;
             vlan {
                 members MGMT-DOMAIN-{{ mgmtdom.id }};
             }
