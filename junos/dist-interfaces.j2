@@ -12,6 +12,16 @@ interfaces {{ intf.name }} {
     {% endif %}
 {% else %}
     description DOWNLINK;
+    {% for mgmtdom in mgmtdomains %}
+    unit {{ mgmtdom.id }} {
+        family ethernet-switching {
+            interface-mode access;
+            vlan {
+                members MGMT-DOMAIN-{{ mgmtdom.id }};
+            }
+        }
+    }
+    {% endfor %}
 {% endif %}
 }
 {# Juniper unique port number in 2 digits #}
