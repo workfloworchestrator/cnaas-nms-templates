@@ -28,3 +28,17 @@ routing-instances {
     }
 }
 {% endfor %}
+
+{% if dhcp_relays| length > 0 %}
+{% for intf in interfaces %}
+{% if intf.ifclass == 'downlink' %}
+{% if ! ((intf.data is defined) and intf.data) %}
+routing-instances {
+    MGMT {
+        interface {{ intf.name }}.0;
+    }
+}
+{% endif %}
+{% endif %}
+{% endfor %}
+{% endif %}
