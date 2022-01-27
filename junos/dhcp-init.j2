@@ -1,0 +1,29 @@
+root-authentication {
+    encrypted-password "{{ TEMPLATE_SECRET_ADMIN_HASH }}";
+}
+login {
+    user admin {
+        uid 2003;
+        class super-user;
+        authentication {
+            encrypted-password "{{ TEMPLATE_SECRET_ADMIN_HASH }}";
+        }
+    }
+}
+services {
+    ssh {
+        root-login deny-password;
+        protocol-version v2;
+    }
+    netconf {
+        ssh;
+    }
+}
+interfaces {
+    unit 0 {
+    family inet {
+        dhcp {
+        }
+    }
+}
+
