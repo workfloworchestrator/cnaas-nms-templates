@@ -4,12 +4,12 @@ system {
             uid 2003;
             class super-user;
             authentication {
-                encrypted-password "{{ TEMPLATE_SECRET_ADMIN_HASH }}"; ## SECRET-DATA
+                encrypted-password "$6$BDlz6u.n$CAggURfxgf9JuAT1wm0HxmSUg85xW3EK829p/y7oiOsRIyBUnUgOeDT.vCUQCYbc0ez33ociC0s66u1ed7xjH1"; ## SECRET-DATA
             }
         }
     }
     root-authentication {
-        encrypted-password "{{ TEMPLATE_SECRET_ADMIN_HASH }}"; ## SECRET-DATA
+        encrypted-password "$6$BDlz6u.n$CAggURfxgf9JuAT1wm0HxmSUg85xW3EK829p/y7oiOsRIyBUnUgOeDT.vCUQCYbc0ez33ociC0s66u1ed7xjH1"; ## SECRET-DATA
     }
     services {
         ssh {
