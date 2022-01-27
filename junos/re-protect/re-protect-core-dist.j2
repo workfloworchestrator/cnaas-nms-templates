@@ -1,0 +1,203 @@
+firewall {
+    family inet {
+        filter re-protect-v4 {
+            term dhcp {
+                from {
+                    port dhcp;
+                }
+            }
+            term discard-fragment-icmp2 {
+                from {
+                    is-fragment;
+                    protocol icmp;
+                }
+                then {
+                    discard;
+                }
+            }
+            term icmp-allow {
+                from {
+                    protocol icmp;
+                    icmp-type [ echo-request echo-reply unreachable time-exceeded source-quench ];
+                }
+                then accept;
+            }
+            term dns-allow {
+                from {
+                    source-prefix-list {
+                        dns-servers; ## 'dns-servers' is not defined
+                    }
+                    protocol udp;
+                    source-port domain;
+                }
+                then accept;
+            }
+            term ntp-allow {
+                from {
+                    source-prefix-list {
+                        ntp-servers; ## 'ntp-servers' is not defined
+                    }
+                    protocol udp;
+                    source-port ntp;
+                }
+                then accept;
+            }
+            term ntp-control {
+                from {
+                    source-prefix-list {
+                        ntp-loopback; ## 'ntp-loopback' is not defined
+                    }
+                    protocol udp;
+                    port ntp;
+                }
+                then accept;
+            }
+            term dhcp-allow {
+                from {
+                    protocol udp;
+                    port dhcp;
+                }
+            }
+            term snmp-allow {
+                from {
+                    source-prefix-list {
+                        snmp-systems; ## 'snmp-systems' is not defined
+                    }
+                    protocol udp;
+                    destination-port [ snmp snmptrap ];
+                }
+                then accept;
+            }
+            term multicast-to-customer-allow {
+                from {
+                    destination-address {
+                        224.0.0.0/4;
+                    }
+                }
+                then accept;
+            }
+            term pim-allow {
+                from {
+                    protocol pim;
+                }
+                then accept;
+            }
+            term bgp-allow {
+                from {
+                    source-prefix-list {
+                        bgp-auto; ## 'bgp-auto' is not defined
+                        bgp-auto-routing-instances; ## 'bgp-auto-routing-instances' is not defined
+                    }
+                    protocol tcp;
+                    port bgp;
+                }
+                then accept;
+            }
+            term vxlan-vtep-allow {
+                from {
+                    protocol udp;
+                    port 4789;
+                }
+                then accept;
+            }
+            term bfd-allow {
+                from {
+                    source-prefix-list {
+                        bgp-auto; ## 'bgp-auto' is not defined
+                        bgp-auto-routing-instances; ## 'bgp-auto-routing-instances' is not defined
+                    }
+                    protocol udp;
+                    source-port 49152-65535;
+                    destination-port [ 3784 4784 ];
+                }
+                then accept;
+            }
+            term udp-traceroute {
+                from {
+                    destination-prefix-list {
+                        corelink; ## 'corelink' is not defined
+                        loopback-addresses; ## 'loopback-addresses' is not defined
+                    }
+                    protocol udp;
+                    ttl 1;
+                }
+                then accept;
+            }
+            term radius-allow {
+                from {
+                    source-prefix-list {
+                        radius-servers; ## 'radius-servers' is not defined
+                    }
+                    protocol udp;
+                    source-port [ radius radacct ];
+                }
+                then accept;
+            }
+            term ssh-allow {
+                from {
+                    source-prefix-list {
+                        cnaas-management-access; ## 'cnaas-management-access' is not defined
+                    }
+                    protocol tcp;
+                    port ssh;
+                }
+                then accept;
+            }
+            term netconf-allow {
+                from {
+                    source-prefix-list {
+                        cnaas-management-access; ## 'cnaas-management-access' is not defined
+                    }
+                    protocol tcp;
+                    destination-port 830;
+                }
+                then accept;
+            }
+            term ospf-allow {
+                from {
+                    protocol ospf;
+                }
+                then accept;
+            }
+            term everything-else-discard {
+                then {
+                    discard;
+                }
+            }
+        }
+    }
+}
+
+
+policy-options {
+    prefix-list dns-servers {
+        apply-path "system name-server <*.*>";
+    }
+    prefix-list ntp-servers {
+        apply-path "system ntp server <*.*>";
+    }
+    prefix-list snmp-systems {
+        apply-path "snmp client-list <*> <*.*>";
+    }
+    prefix-list bgp-auto {
+        apply-path "protocols bgp group <*> neighbor <*>";
+    }
+    prefix-list bgp-auto-routing-instances {
+        apply-path "routing-instances <*> protocols bgp group <*> neighbor <*>";
+    }
+    prefix-list corelink {
+        10.3.8.0/22;
+    }
+    prefix-list ntp-loopback {
+        apply-path "interfaces lo0 unit 0 family inet address <*>";
+    }
+    prefix-list loopback-addresses {
+        10.3.0.0/22;
+    }
+    prefix-list radius-servers {
+        apply-path "system radius-server <*>";
+    }
+    prefix-list cnaas-management-access {
+        10.2.0.0/16;
+    }
+}
