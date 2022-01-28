@@ -11,6 +11,7 @@ ACCESS:
     - access-vlans.j2
     #- access-mlag.j2
     - access-interfaces.j2
+    - access-vchassis-config.j2
 VCHASSIS:
   entrypoint: vchassis.j2
   dependencies:
