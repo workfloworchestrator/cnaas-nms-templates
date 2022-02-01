@@ -9,7 +9,6 @@ interfaces {{ intf.name }} {
     {% else %}
     description DOWNLINK;
     {% endif %}
-    ether-options 802.3ad ae{{ po_num }};
 {% else %}
     unit 0 {
     {% if mgmtdomains |length == 1 %}
@@ -21,6 +20,7 @@ interfaces {{ intf.name }} {
         }
     }
     {% endfor %}
+    ether-options 802.3ad ae{{ po_num }};
     {% endif %}
 }
 {% endif %}
