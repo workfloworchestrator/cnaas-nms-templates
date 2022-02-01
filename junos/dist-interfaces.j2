@@ -52,9 +52,9 @@ interfaces ae{{ po_num }} {
             native-vlan-id {{ mgmtdomains[0].vlan }};
             {% else %}
             vlan {
-                {% for mgmtdom in mgmtdomains %}
+            {% for mgmtdom in mgmtdomains %}
                 members MGMT-DOMAIN-{{ mgmtdom.id }};
-                {% endfor %}
+            {% endfor %}
             }
             {% endif %}
             vlan {
