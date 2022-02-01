@@ -8,8 +8,6 @@ interfaces {{ intf.name }} {
 {% endif %}
     ether-options 802.3ad ae{{ po_num }};
 }
-{% endif %}
-}
 {# Juniper unique port number in 2 digits #}
 {% set intf_split = intf.name.split('-') %}
 {% set intf_split2 = intf_split[1].split('/') %}
