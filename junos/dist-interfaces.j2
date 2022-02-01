@@ -49,14 +49,10 @@ interfaces ae{{ po_num }} {
     unit 0 {
         family ethernet-switching {
             interface-mode trunk;
-            {% if mgmtdomains|length > 1 %}
             vlan {
             {% for mgmtdom in mgmtdomains %}
                 members MGMT-DOMAIN-{{ mgmtdom.id }};
             {% endfor %}
-            }
-            {% endif %}
-            vlan {
             {% for vxlan_name, vxlan_data in vxlans.items() %}
                 members {{ vxlan_data.vlan_name }};
             {% endfor %}
