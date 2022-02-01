@@ -42,13 +42,14 @@ interfaces ae{{ po_num }} {
             {#system-id 00:01:00:00:{{ "%02x" % mgmtdomains[0].id }}:{{ "%02x" % intf.indexnum }};#}
         }
     }
+    {% if mgmtdomains|length == 1 %}
+            native-vlan-id {{ mgmtdomains[0].vlan }};
+    {% endif %}
     {% if mgmtdomains|length > 0 or vxlans.items()|length > 0 %}
     unit 0 {
         family ethernet-switching {
             interface-mode trunk;
-            {% if mgmtdomains|length == 1 %}
-            native-vlan-id {{ mgmtdomains[0].vlan }};
-            {% else %}
+            {% if mgmtdomains|length > 1 %}
             vlan {
             {% for mgmtdom in mgmtdomains %}
                 members MGMT-DOMAIN-{{ mgmtdom.id }};
