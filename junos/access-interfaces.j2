@@ -44,8 +44,8 @@ interfaces {
         unit 0 {
             family ethernet-switching {
                 interface-mode trunk;
+                native-vlan-id {{ mgmt_vlan_id }};
                 vlan {
-                    members {{ mgmt_vlan_id }};
                     {% if (vxlans is defined) and vxlans %}
                     {% for vxlan_name, vxlan_data in vxlans.items() %}
                     members {{ vxlan_data.vlan_id }};

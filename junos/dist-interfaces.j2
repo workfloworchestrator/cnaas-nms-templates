@@ -5,19 +5,8 @@
 interfaces {{ intf.name }} {
 {% if (intf.data is defined) and intf.data %}
     description {{ intf.data.description }};
+{% endif %}
     ether-options 802.3ad ae{{ po_num }};
-{% else %}
-    unit 0 {
-    {% if mgmtdomains |length == 1 %}
-    {% for mgmtdom in mgmtdomains %}
-    family ethernet-switching {
-        interface-mode access;
-        vlan {
-            members MGMT-DOMAIN-{{ mgmtdom.id }};
-        }
-    }
-    {% endfor %}
-    {% endif %}
 }
 {% endif %}
 }
@@ -50,6 +39,7 @@ interfaces ae{{ po_num }} {
         lacp {
             active;
             periodic fast;
+            force-up;
             system-id 00:01:00:{{ intf_split2[0].rjust(2,'0') }}:{{ intf_split2[1].rjust(2,'0') }}:{{ intf_split2[2].rjust(2,'0') }};
             {#system-id 00:01:00:00:{{ "%02x" % mgmtdomains[0].id }}:{{ "%02x" % intf.indexnum }};#}
         }
@@ -58,10 +48,16 @@ interfaces ae{{ po_num }} {
     unit 0 {
         family ethernet-switching {
             interface-mode trunk;
+            {% if mgmtdomains|length == 1 %}
+            native-vlan-id {{ mgmtdomains[0].vlan }};
+            {% else %}
             vlan {
-            {% for mgmtdom in mgmtdomains %}
+                {% for mgmtdom in mgmtdomains %}
                 members MGMT-DOMAIN-{{ mgmtdom.id }};
-            {% endfor %}
+                {% endfor %}
+            }
+            {% endif %}
+            vlan {
             {% for vxlan_name, vxlan_data in vxlans.items() %}
                 members {{ vxlan_data.vlan_name }};
             {% endfor %}
