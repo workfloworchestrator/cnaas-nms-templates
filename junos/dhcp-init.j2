@@ -25,7 +25,9 @@ interfaces {
     irb {
         unit 0 {
             family inet {
-                dhcp;
+                dhcp {
+                    vendor-id Juniper;
+                }
             }
         }
     }
