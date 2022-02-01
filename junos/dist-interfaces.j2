@@ -4,11 +4,8 @@
 {% set po_num = (intf.indexnum-1)%2000 %} 
 interfaces {{ intf.name }} {
 {% if (intf.data is defined) and intf.data %}
-    {% if (intf.data.description is defined) and intf.data.description %}
     description {{ intf.data.description }};
-    {% else %}
-    description DOWNLINK;
-    {% endif %}
+    ether-options 802.3ad ae{{ po_num }};
 {% else %}
     unit 0 {
     {% if mgmtdomains |length == 1 %}
@@ -20,7 +17,6 @@ interfaces {{ intf.name }} {
         }
     }
     {% endfor %}
-    ether-options 802.3ad ae{{ po_num }};
     {% endif %}
 }
 {% endif %}
