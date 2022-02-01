@@ -35,6 +35,7 @@ interfaces {
 
 interfaces {
     ae0 {
+        native-vlan-id {{ mgmt_vlan_id }};
         mtu 9192;
         aggregated-ether-options {
             lacp {
@@ -44,7 +45,6 @@ interfaces {
         unit 0 {
             family ethernet-switching {
                 interface-mode trunk;
-                native-vlan-id {{ mgmt_vlan_id }};
                 vlan {
                     {% if (vxlans is defined) and vxlans %}
                     {% for vxlan_name, vxlan_data in vxlans.items() %}
