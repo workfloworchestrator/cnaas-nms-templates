@@ -32,7 +32,10 @@ interfaces {
 }
 
 protocols {
-    lldp {
+    lldp-med {
+        interface all;
+    }
+    rstp {
         interface all;
     }
 }
@@ -48,29 +51,13 @@ interfaces {
     xe-0/2/0 {
        unit 0 {
             family ethernet-switching {
-                interface-mode access;
+                storm-control default;
             }
         }
     }
-    xe-0/2/1 {
-       unit 0 {
-            family ethernet-switching {
-                interface-mode access;
-            }
-        }
-    }
-    xe-0/2/2 {
-       unit 0 {
-            family ethernet-switching {
-                interface-mode access;
-            }
-        }
-    }
-    xe-0/2/3 {
-       unit 0 {
-            family ethernet-switching {
-                interface-mode access;
-            }
-        }
+
+forwarding-options {
+    storm-control-profiles default {
+        all;
     }
 }
