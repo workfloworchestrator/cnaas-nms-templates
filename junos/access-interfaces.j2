@@ -31,6 +31,11 @@ interfaces {
     }
 }
 {% endif %}
+{% if intf.ifclass == 'custom' %}
+interfaces {{ intf.name }} {
+    {{ intf.config }}
+}
+{% endif %}
 {% endfor %}
 
 interfaces {
