@@ -201,3 +201,17 @@ policy-options {
         10.2.0.0/16;
     }
 }
+
+groups {
+    interfaces {
+        <lo*> {
+            unit <*> {
+                family inet {
+                    filter {
+                        input re-protect-v4;
+                    }
+                }
+            }
+        }
+    }
+}
