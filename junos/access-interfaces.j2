@@ -35,7 +35,6 @@ interfaces {
 interfaces {{ intf.name }} {
     unit 0 {
         family ethernet-switching {
-            interface-mode access;
             vlan {
                 members {{ intf.untagged_vlan }};
             }
