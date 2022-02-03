@@ -162,6 +162,7 @@ firewall {
             term everything-else-discard {
                 then {
                     discard;
+                    log;
                 }
             }
         }
