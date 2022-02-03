@@ -23,6 +23,10 @@ access {
 }
 
 protocols {
+    layer2-control {
+        nonstop-bridging;
+    }
+
     dot1x {
         authenticator {
             authentication-profile-name NAC-802-1x;
@@ -60,11 +64,12 @@ interfaces {
     }
 }
 
-#ethernet-switching-options {
-#    nonstop-bridging;
+#switch-options {
+# port error moet naar de interface?
 #    port-error-disable {
 #        disable-timeout 300;
 #    }
+
 #    storm-control {
 #    interface all {
 #            bandwidth 10000;
