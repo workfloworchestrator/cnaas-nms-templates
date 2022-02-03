@@ -31,9 +31,16 @@ interfaces {
     }
 }
 {% endif %}
-{% if intf.ifclass == 'custom' %}
+{% if intf.ifclass == 'ACCESS_UNTAGGED' %}
 interfaces {{ intf.name }} {
-    {{ intf.config }}
+    unit 0 {
+        family ethernet-switching {
+            interface-mode access;
+            vlan {
+                members {{ intf.untagged_vlan }};
+            }
+        }
+    }
 }
 {% endif %}
 {% endfor %}
