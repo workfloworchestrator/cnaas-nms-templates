@@ -60,23 +60,23 @@ interfaces {
     }
 }
 
-ethernet-switching-options {
-    nonstop-bridging;
-    port-error-disable {
-        disable-timeout 300;
-    }
-    storm-control {
-    interface all {
-            bandwidth 10000;
-        }
-    }
-    bpdu-block {
-        interface all {
-            shutdown;
-        }
-        disable-timeout 300;
-    }
-}
+#ethernet-switching-options {
+#    nonstop-bridging;
+#    port-error-disable {
+#        disable-timeout 300;
+#    }
+#    storm-control {
+#    interface all {
+#            bandwidth 10000;
+#        }
+#    }
+#    bpdu-block {
+#        interface all {
+#            shutdown;
+#        }
+#        disable-timeout 300;
+#    }
+#}
 
 poe {
     interface all;
