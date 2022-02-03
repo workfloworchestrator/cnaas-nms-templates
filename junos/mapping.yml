@@ -35,6 +35,8 @@ CORE:
     - fabric/fabric-base-bgp.j2
     - fabric/fabric-base-core.j2
     - core-interfaces.j2
+    - re-protect/re-protect-core-dist.j2
+
 DIST:
   entrypoint: dist.j2
   dependencies:
@@ -51,3 +53,4 @@ DIST:
     - dist-routing.j2
     - dist-bgp.j2
     #- routing-policy.j2
+    - re-protect/re-protect-core-dist.j2
