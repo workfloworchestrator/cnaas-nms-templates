@@ -203,12 +203,14 @@ policy-options {
 }
 
 groups {
-    interfaces {
-        lo0 {
-            unit <*> {
-                family inet {
-                    filter {
-                        input re-protect-v4;
+    loopback-interface {
+        interfaces {
+            lo0 {
+                unit <*> {
+                    family inet {
+                        filter {
+                            input re-protect-v4;
+                        }
                     }
                 }
             }
