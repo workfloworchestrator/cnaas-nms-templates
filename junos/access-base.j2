@@ -73,9 +73,7 @@ protocols {
     layer2-control {
         nonstop-bridging;
         bpdu-block {
-            interface EDGE {
-                disable;
-            }
+            interface EDGE;
             disable-timeout 300;
         }
     }
