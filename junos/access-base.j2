@@ -6,6 +6,12 @@ system {
     }
 }
 
+chassis {
+    redundancy {
+        graceful-switchover;
+    }
+}
+
 {% if (radius_servers is defined) and radius_servers %}
 access {
     {% for server in radius_servers %}
