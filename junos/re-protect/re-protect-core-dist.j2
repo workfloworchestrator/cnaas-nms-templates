@@ -204,18 +204,18 @@ policy-options {
     }
 }
 
-groups {
-    loopback-interface {
-        interfaces {
-            <lo*> {
-                unit <*> {
-                    family inet {
-                        filter {
-                            input re-protect-v4;
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
+#groups {
+#    loopback-interface {
+#        interfaces {
+#            <lo*> {
+#                unit <*> {
+#                    family inet {
+#                        filter {
+#                            input re-protect-v4;
+#                        }
+#                    }
+#                }
+#            }
+#        }
+#    }
+#}
