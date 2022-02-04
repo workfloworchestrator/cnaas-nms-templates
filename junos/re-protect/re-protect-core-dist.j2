@@ -187,7 +187,7 @@ policy-options {
         apply-path "routing-instances <*> protocols bgp group <*> neighbor <*>";
     }
     prefix-list corelink {
-        10.3.8.0/22;
+        {% underlay.infra_link_net %};
     }
     prefix-list ntp-loopback {
         apply-path "interfaces lo0 unit 0 family inet address <*>";
@@ -206,7 +206,7 @@ policy-options {
 groups {
     loopback-interface {
         interfaces {
-            lo0 {
+            <lo*> {
                 unit <*> {
                     family inet {
                         filter {
