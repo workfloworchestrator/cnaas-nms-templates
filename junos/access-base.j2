@@ -23,10 +23,6 @@ access {
 }
 
 protocols {
-    layer2-control {
-        nonstop-bridging;
-    }
-
     dot1x {
         authenticator {
             authentication-profile-name NAC-802-1x;
@@ -43,12 +39,6 @@ protocols {
             }
         }
     }
-    rstp {
-        interface EDGE {
-            edge;
-            no-root-port;
-        }
-    }
 }
 
 {% endif %}
@@ -59,29 +49,34 @@ interfaces {
         unit 0 {
             family ethernet-switching {
                 interface-mode access;
+                storm-control default;
             }
         }
     }
 }
+protocols {
+    rstp {
+        interface EDGE {
+            edge;
+            no-root-port;
+        }
+    }
+    layer2-control {
+        nonstop-bridging;
+        bpdu-block {
+            interface EDGE {
+                disable;
+            }
+            disable-timeout 300;
+        }
+    }
+}
 
-#switch-options {
-# port error moet naar de interface?
-#    port-error-disable {
-#        disable-timeout 300;
-#    }
-
-#    storm-control {
-#    interface all {
-#            bandwidth 10000;
-#        }
-#    }
-#    bpdu-block {
-#        interface all {
-#            shutdown;
-#        }
-#        disable-timeout 300;
-#    }
-#}
+forwarding-options {
+    storm-control-profiles default {
+        all;
+    }
+}
 
 poe {
     interface all;
