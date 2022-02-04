@@ -193,7 +193,8 @@ policy-options {
         apply-path "interfaces lo0 unit 0 family inet address <*>";
     }
     prefix-list loopback-addresses {
-        10.3.0.0/22;
+        {{ underlay.mgmt_lo_net }};
+        {{ underlay.infra_lo_net }};
     }
     prefix-list radius-servers {
         apply-path "system radius-server <*>";
